@@ -1,0 +1,8 @@
+psycopg2-binary
+python-dotenv
+ijson
+langchain
+langchain-classic
+langchain-ollama
+langchain-chroma
+chromadb
