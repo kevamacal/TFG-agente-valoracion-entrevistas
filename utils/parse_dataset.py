@@ -1,4 +1,3 @@
-# parse_dataset.py
 from pathlib import Path
 import ijson
 import sys
@@ -10,21 +9,19 @@ def procesar_archivo(ruta_json):
     """
     ruta = Path(ruta_json)
     if not ruta.exists():
-        print(f"❌ Archivo no encontrado: {ruta}")
+        print(f"Archivo no encontrado: {ruta}")
         sys.exit(1)
 
-    print(f"📂 Procesando dataset: {ruta} ...")
+    print(f"Procesando dataset: {ruta} ...")
 
     with ruta.open("r", encoding="utf-8") as f:
-        # 'item' recorre los elementos del array JSON raíz
         for i, registro in enumerate(ijson.items(f, "item"), start=1):
             title = registro.get("title", "")
             summary = registro.get("summary", "")
-            # Algunos datasets usan 'utt' o 'transcript'
             transcript = registro.get("utt") or registro.get("transcript") or ""
             yield [title, summary, transcript]
 
             if i % 10000 == 0:
-                print(f"🧩 Procesadas {i:,} entrevistas...")
+                print(f"Procesadas {i:,} entrevistas...")
 
-    print("✅ Lectura del dataset completada.")
+    print("Lectura del dataset completada.")
